@@ -57,17 +57,24 @@ public class FinalProjectChaserGame extends Application {
 	
 
 	@Override 
-		public void start(Stage primaryStage) {
+		public void start(Stage primaryStage) throws FileNotFoundException {
 			music.setCycleCount(MediaPlayer.INDEFINITE);
 			music.play();
 			this.chaser = new Chaser();	
 			this.food = new Food();		
 			Pane gamePane = new Pane();
-			gamePane.getChildren().addAll(this.food, this.chaser);
 			
-			music.pause();
-				win.play();
-			music.play();
+			Image image = new Image(new FileInputStream("images/backgrounds/blue.jpg"));	
+			//Image image = new Image(new FileInputStream("images/backgrounds/colorful.jpg"));
+			//Image image = new Image(new FileInputStream("images/backgrounds/paintSplotch2.jpg"));
+			//Image image = new Image(new FileInputStream("images/backgrounds/purplePaisley.jpg")); 
+			
+			ImageView background = new ImageView(image);			
+			background.setFitWidth(500);
+			background.setFitHeight(500);
+			gamePane.getChildren().addAll(background, this.food, this.chaser);
+			
+			
 			
 			HBox hBox = new HBox(10);
 			hBox.setAlignment(Pos.CENTER);
@@ -88,6 +95,7 @@ public class FinalProjectChaserGame extends Application {
 			BorderPane pane = new BorderPane();
 			pane.setCenter(gamePane);
 			pane.setTop(hBox);
+			
 			pane.setOnKeyPressed(e ->  { 
 			switch (e.getCode()) {
 				case DOWN:this.chaser.down();return;  
@@ -185,9 +193,8 @@ class Chaser extends Pane {
 		start();			
 	}	
 	public void eat(){
-		try{
-			Image happyFace = new Image(new FileInputStream("images/faces/heartFace.png"));	
-			this.face = new ImageView(happyFace);
+		try{	
+			this.face = new ImageView(new Image(new FileInputStream("images/faces/heartFace.png")));
 			this.face.setFitHeight(50);
 			this.face.setFitWidth(50);
 		}
@@ -211,7 +218,7 @@ class Food extends Pane {
 			String foodImg = foodPicker();
 			this.food = new ImageView(new Image(foodImg));
 			int randFoodX = (int)(Math.random() * 300 + 50);
-			int randFoodY = (int)(Math.random() * 380 + 50);
+			int randFoodY = (int)(Math.random() * 370 + 50);
 			if((randFoodX % 10.0 != 0) || (randFoodY % 10 != 0)){
 				if(randFoodX % 10 != 0){
 					while(randFoodX % 10 != 0){
@@ -267,7 +274,7 @@ class Food extends Pane {
 		Random random = new Random();	
 		String[] food  = {"banana", "birthdayCake", "bread", "candy", "cherry", "chocolate", "cookie", "corn", "donut", "drumstick", "flan", "frenchFries", "friedEgg", "fruitShiskabob", "grapes", "greenApple", "greenSoup", "hamburger", "honey", "icecreamBowl", "icecreamCone", "lemon", "lollypop", "meatOnBones", "meatShishkabob", "melon", "orange", "orangeJuice", "peach", "pear", "pineapple", "pizzaSlice", "redApple", "rice", "spaghetti","strawberry", "strawberryIcecream", "strawberryShortCake", "tomato", "watermelonSlice", "yams" };
 		int rand = random.nextInt(food.length);
-		String result = new String("images/" + food[rand] + ".png");
+		String result = new String("images/food/" + food[rand] + ".png");
 		return result;
 	}
 	

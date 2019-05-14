@@ -75,7 +75,6 @@ public class FinalProjectChaserGame extends Application {
 			gamePane.getChildren().addAll(background, this.food, this.chaser);
 			
 			
-			
 			HBox hBox = new HBox(10);
 			hBox.setAlignment(Pos.CENTER);
 			hBox.setPadding(new Insets(3, 10, 3, 10));

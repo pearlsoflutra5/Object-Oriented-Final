@@ -6,43 +6,44 @@ Final Project: Chaser game with an emoji face that eats food and dodges obstacle
 All the images are By Twitter, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=(37288034 through 37288142)
 
 Music by Alexander Blu, CC BY 4.0, http://www.orangefreesounds.com/aggressive-electronic-dubstep-track/
+	http://www.orangefreesounds.com/electronic-beat/
+	http://www.orangefreesounds.com/ambient-background-music-intro/
+	http://www.orangefreesounds.com/mysterious-piano/
+	http://www.orangefreesounds.com/chill-electronic-music/
+	http://www.orangefreesounds.com/ambient-synth-pad-sound/
+	http://www.orangefreesounds.com/retro-electronic-music-intro/
+	http://www.orangefreesounds.com/electronic-background-music-for-videos/
+	http://www.orangefreesounds.com/primavera-lounge-music-inspired-spring/
+	http://www.orangefreesounds.com/brightness-soft-techno/
+	http://www.orangefreesounds.com/electro-blues-groovy-lounge-track/
+	http://www.orangefreesounds.com/snowy-street-solo-piano-melody/
 Sound effects by Alexander Blu, CC BY 4.0, http://www.orangefreesounds.com/winning-sound-effect/, http://www.orangefreesounds.com/wha-wha-wha-sound-effect/
 
 */
-import java.util.Random;
-import java.lang.String;
-import javax.xml.soap.*;
-import java.awt.*;
-import javafx.fxml.FXMLLoader;
-import javafx.application.Application;
 import java.io.File; 
 import java.io.FileInputStream; 
 import java.io.FileNotFoundException;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.layout.Region.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.geometry.Pos;
-import javafx.geometry.Insets;
-import javafx.scene.text.Text; 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.animation.FadeTransition;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
-import javafx.animation.KeyFrame;
-import javafx.animation.Animation;
-import javafx.util.Duration;
+import java.util.Random; 
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javax.swing.plaf.basic.*;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
+import javafx.scene.layout.Region.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.Scene;
+import javafx.scene.text.Text; 
+import javafx.stage.Stage;
 
 public class FinalProjectChaserGame extends Application {
 	public Chaser chaser;
@@ -51,15 +52,37 @@ public class FinalProjectChaserGame extends Application {
 	public long food1;	
 	public long food2;
 	
-	MediaPlayer music = new MediaPlayer(new Media(new File("sounds/background.mp3").toURI().toString()));
+	MediaPlayer mediaPlayer;
 	MediaPlayer win = new MediaPlayer(new Media(new File("sounds/win.mp3").toURI().toString()));
 	MediaPlayer lose = new MediaPlayer(new Media(new File("sounds/lose.mp3").toURI().toString()));
 	
+	Button start = new Button("Start Music");
+	Button pause = new Button("Pause Music");
 
 	@Override 
 		public void start(Stage primaryStage) throws FileNotFoundException {
-			music.setCycleCount(MediaPlayer.INDEFINITE);
-			music.play();
+			Media music1 = new Media(this.getClass().getResource("sounds/background.mp3").toExternalForm());
+			Media music2 = new Media(this.getClass().getResource("sounds/background2.mp3").toExternalForm());
+			Media music3 = new Media(this.getClass().getResource("sounds/background3.mp3").toExternalForm());
+			Media music4 = new Media(this.getClass().getResource("sounds/background4.mp3").toExternalForm());
+			Media music5 = new Media(this.getClass().getResource("sounds/background5.mp3").toExternalForm());
+			Media music6 = new Media(this.getClass().getResource("sounds/background6.mp3").toExternalForm());
+			Media music7 = new Media(this.getClass().getResource("sounds/background7.mp3").toExternalForm());
+			Media music8 = new Media(this.getClass().getResource("sounds/background8.mp3").toExternalForm());
+			Media music10 = new Media(this.getClass().getResource("sounds/background10.mp3").toExternalForm());
+			Media music11 = new Media(this.getClass().getResource("sounds/background11.mp3").toExternalForm());
+			Media music12 = new Media(this.getClass().getResource("sounds/background12.mp3").toExternalForm());
+			Media music13 = new Media(this.getClass().getResource("sounds/background13.mp3").toExternalForm());
+			Media music14 = new Media(this.getClass().getResource("sounds/win2.mp3").toExternalForm());
+			Media music9 = new Media(this.getClass().getResource("sounds/lose2.mp3").toExternalForm());
+
+			ObservableList<Media> mediaList = FXCollections.observableArrayList();
+			//mediaList.addAll(music3, );
+			mediaList.add(music3);
+			/*music2, music10, music1, music4, music5, music6, music7, music8, music12, music13, music11*/
+		
+			playMediaTracks(mediaList);		
+			
 			this.chaser = new Chaser();	
 			this.food = new Food();		
 			Pane gamePane = new Pane();
@@ -72,16 +95,16 @@ public class FinalProjectChaserGame extends Application {
 			ImageView background = new ImageView(image);			
 			background.setFitWidth(500);
 			background.setFitHeight(500);
-			gamePane.getChildren().addAll(background, this.food, this.chaser);
-			
+			gamePane.getChildren().addAll(background, this.food, this.chaser);			
 			
 			HBox hBox = new HBox(10);
 			hBox.setAlignment(Pos.CENTER);
 			hBox.setPadding(new Insets(3, 10, 3, 10));
 			hBox.setStyle("-fx-border-color: blue");
+			
 			Button restart = new Button("Restart");
-			this.score = new Text("0");
-			hBox.getChildren().addAll(restart, this.score);	
+			this.score = new Text("Score: 0");
+			hBox.getChildren().addAll(restart, pause, start, this.score);	
 	
 			restart.setOnAction(new EventHandler<ActionEvent>() {
 				@Override public void handle(ActionEvent e) {
@@ -90,7 +113,7 @@ public class FinalProjectChaserGame extends Application {
 					score.setText(chaser.scoreT + "");					
 				}
 			});
-			
+					
 			BorderPane pane = new BorderPane();
 			pane.setCenter(gamePane);
 			pane.setTop(hBox);
@@ -113,31 +136,50 @@ public class FinalProjectChaserGame extends Application {
 				pointGain();
 			}); 
 						
-	}
-	
+	}	
 	public void pointGain() {
-		food1 = chaser.scoreT;
-		score.setText(Long.toString(chaser.scoreT));
+		score.setText("Score: " + Long.toString(chaser.scoreT));
 		if((chaser.face.getX() == food.food.getX()) && (chaser.face.getY() == food.food.getY())) {
 			chaser.scoreT++;
-			score.setText(chaser.scoreT + "");		
+			score.setText("Score: " + chaser.scoreT + "");		
 			food.die();			
 		}
 		else {
 			return;
 		}	
 	} 
-	public long win(){
-		if((chaser.face.getX() == food.food.getX()) && (chaser.face.getY() == food.food.getY())) {
-			return chaser.scoreT;
-		}
-		else{
-			return 0;
+		
+	public void playMediaTracks(ObservableList<Media> mediaList) {		
+		if (mediaList.size() == 0){
+			return;
 		}	
+		
+		MediaPlayer mediaPlayer = new MediaPlayer(mediaList.remove(0));	
+		mediaPlayer.setOnEndOfMedia(new Runnable() {
+			@Override
+			public void run() {
+				playMediaTracks(mediaList);
+			}
+		});
+		mediaPlayer.play();
+		
+		pause.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				mediaPlayer.pause();					
+			}
+		});
+		
+		start.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				mediaPlayer.play();					
+			}
+		});	
 	}
+	
+	
 	public static void main(String[] args) throws FileNotFoundException {
-		launch(args);
-	}		
+			launch(args);
+		}	
 }
 
 
@@ -156,6 +198,7 @@ class Chaser extends Pane {
 		catch (FileNotFoundException e) {
 		}	
 	}
+	
 	
 	public void down(){
 		if(this.face.getY() > 405) return;
@@ -208,6 +251,14 @@ class Chaser extends Pane {
 		catch (FileNotFoundException e){	
 		}		
 	}
+	public void normal(){
+			try{
+				Image openFace = new Image(new FileInputStream("images/faces/openFace.png"));	
+				this.face =	new ImageView(openFace);
+			}
+			catch (FileNotFoundException e){	
+			}		
+		}
 		
 }
 //--------------------------------FOOD-------------------------------------------------

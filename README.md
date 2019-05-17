@@ -7,9 +7,9 @@ I have two young nephews and I wanted to create a game that would be fun for the
 
 ## How to Run
 The only file needed to run the code is the main FinalProjectChaserGame.java from the main screen. 
-[Still of my code during a run.](code.png)
 
 <img src="code.png" alt="my code example">
+[Still of my code during a run.](code.png)
 
 ## Code Example
 I was especially proud of this code because it was the most important to me.  I wanted to take music from a Media list and then be able to repeat it infinitely. While running infinitely I also wanted to be able to pause the music, because you may have to leave and that is the only thing that is dependent on time. The rest of the code takes user input to run. It took me a while to get the code in the correct locations, but it was very rewarding to make what I specifically wanted for my project.  

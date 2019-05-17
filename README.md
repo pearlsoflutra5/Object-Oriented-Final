@@ -7,6 +7,8 @@ I have two young nephews and I wanted to create a game that would be fun for the
 
 ## How to Run
 The only file needed to run the code is the main FinalProjectChaserGame.java from the main screen. 
+
+<img src="code.png" alt="my code example">
 [Still of my code during a run.](code.png)
 
 ## Code Example
@@ -45,7 +47,7 @@ public int index = 0;
 ```
 
 ## Tests
-### Describe and show how to run the tests with code examples. State that you are using JUnit4 to test.
+I used JUnit 4 to do testing. I only had one method that needed testing because 
 
 ## Contributors
 There is not anything that is special for this project. I did use JavaFx so there may be some complications with certain programs. Anyone can modify this project how they wish just as long as the original code stays the same.  A fun idea that I had was to create obstacles for the "hunter" to avoid.

@@ -244,7 +244,7 @@ class Food extends Pane {
 	//method for setting the location of food
 	public void start() {
 		String foodImg = foodPicker();
-		this.food = new ImageView(new Image(foodImg));
+		this.food = new ImageView(new File(foodImg).toURI().toString());
 		int randFoodX = (int)(Math.random() * 300 + 50);
 		int randFoodY = (int)(Math.random() * 300 + 50);
 		if((randFoodX % 10.0 != 0) || (randFoodY % 10 != 0)){

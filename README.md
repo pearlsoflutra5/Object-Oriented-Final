@@ -1,9 +1,11 @@
 # Object-Oriented-Final
 
-##resources
-All the images are By Twitter, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=  (curid 37288034 through 37288142)
+## resources
+### Images
+By Twitter, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=  (curid 37288034 through 37288142)
 
-<p> Music by Alexander Blu, CC BY 4.0, </p>
+### Music
+By Alexander Blu, CC BY 4.0
 <ul> 
   <li>http://www.orangefreesounds.com/aggressive-electronic-dubstep-track/
   <li>http://www.orangefreesounds.com/electronic-beat/

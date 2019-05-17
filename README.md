@@ -18,30 +18,30 @@ public int index = 0;
 			return;
 		}
 		this.mediaPlayer = new MediaPlayer(mediaList.get(index));
-		this.mediaPlayer.play();							 							
+		this.mediaPlayer.play();							
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
 			@Override
-			public void run() {	
+			public void run() {
 				if(index + 1 < mediaList.size() - 1){
 					index++;
-				}	
-				else{
+				}
+				else {
 					index = 0;
-				}				
+				}
 				playMediaTracks(mediaList);
 			}
-		});				
+		});
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				mediaPlayer.pause();					
+				mediaPlayer.pause();
 			}
-		});			
+		});
 		start.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				mediaPlayer.play();					
+				mediaPlayer.play();
 			}
-		});		
-	}		
+		});
+	}
 ```
 
 ## Tests

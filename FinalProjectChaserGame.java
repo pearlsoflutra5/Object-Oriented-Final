@@ -3,31 +3,11 @@ Kacie Rae
 5-6-19
 Final Project: Chaser game with an emoji face that eats food.
 
-All the images are By Twitter, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=  number
-	number = (37288034 through 37288142)
-
-Music by Alexander Blu, CC BY 4.0, http://www.orangefreesounds.com/aggressive-electronic-dubstep-track/
-	http://www.orangefreesounds.com/electronic-beat/
-	http://www.orangefreesounds.com/ambient-background-music-intro/
-	http://www.orangefreesounds.com/mysterious-piano/
-	http://www.orangefreesounds.com/chill-electronic-music/
-	http://www.orangefreesounds.com/ambient-synth-pad-sound/
-	http://www.orangefreesounds.com/retro-electronic-music-intro/
-	http://www.orangefreesounds.com/electronic-background-music-for-videos/
-	http://www.orangefreesounds.com/primavera-lounge-music-inspired-spring/
-	http://www.orangefreesounds.com/brightness-soft-techno/
-	http://www.orangefreesounds.com/electro-blues-groovy-lounge-track/
-	http://www.orangefreesounds.com/snowy-street-solo-piano-melody/
-Sound effects by Alexander Blu, CC BY 4.0, http://www.orangefreesounds.com/winning-sound-effect/, http://www.orangefreesounds.com/wha-wha-wha-sound-effect/
-
 */
 import java.io.File; 
 import java.io.FileInputStream; 
 import java.io.FileNotFoundException;
-import java.util.Collection;
 import java.util.Random; 
-import java.util.List;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,11 +36,8 @@ public class FinalProjectChaserGame extends Application {
 	public long food1;	
 	public long food2;
 	MediaPlayer mediaPlayer;
-	MediaPlayer win = new MediaPlayer(new Media(new File("sounds/win.mp3").toURI().toString()));
-	MediaPlayer lose = new MediaPlayer(new Media(new File("sounds/lose.mp3").toURI().toString()));
 	Button start = new Button("Start Music");
 	Button pause = new Button("Pause Music");
-	boolean eating = false;
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		launch(args);
@@ -130,7 +107,7 @@ public class FinalProjectChaserGame extends Application {
 			});	
 
 			Scene scene = new Scene(pane, 500, 500);
-			primaryStage.setTitle("Chaser Game"); 
+			primaryStage.setTitle("Chaser Game: use arrow keys to move."); 
 			primaryStage.setScene(scene); 
 			primaryStage.show();
 			pane.requestFocus();
@@ -140,7 +117,6 @@ public class FinalProjectChaserGame extends Application {
 						
 	}	
 	public void pointGain() {
-		eating = false;
 		score.setText("Score: " + Long.toString(chaser.scoreT));
 		double diffX = Math.abs(chaser.face.getX() - food.food.getX());
 		double diffY = Math.abs(chaser.face.getY() - food.food.getY());
@@ -148,7 +124,6 @@ public class FinalProjectChaserGame extends Application {
 			chaser.scoreT++;
 			score.setText("Score: " + chaser.scoreT + "");		
 			food.die();	
-			eating = true;;
 		}
 		else {
 			return;

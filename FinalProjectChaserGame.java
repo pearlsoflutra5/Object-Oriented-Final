@@ -134,11 +134,8 @@ public class FinalProjectChaserGame extends Application {
 		if (mediaList.size() == 0){
 			return;
 		}
-		
-		
 		this.mediaPlayer = new MediaPlayer(mediaList.get(index));
-		this.mediaPlayer.play();	
-						 							
+		this.mediaPlayer.play();							 							
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
 			@Override
 			public void run() {	

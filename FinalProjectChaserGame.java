@@ -2,7 +2,6 @@
 Kacie Rae
 5-6-19
 Final Project: Chaser game with an emoji face that eats food.
-
 */
 import java.io.File; 
 import java.io.FileInputStream; 
@@ -29,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text; 
 import javafx.stage.Stage;
 
+//main class
 public class FinalProjectChaserGame extends Application {
 	public Chaser chaser;
 	public Food food;
@@ -42,7 +42,7 @@ public class FinalProjectChaserGame extends Application {
 	public static void main(String[] args) throws FileNotFoundException {
 		launch(args);
 	}
-	
+	//main method that creates the GUI
 	@Override 
 		public void start(Stage primaryStage) throws FileNotFoundException {
 			Media music1 = new Media(this.getClass().getResource("sounds/background.mp3").toExternalForm());
@@ -67,10 +67,8 @@ public class FinalProjectChaserGame extends Application {
 			
 			this.chaser = new Chaser();	
 			this.food = new Food();		
-			Pane gamePane = new Pane();
-			
-			Image image = new Image(new FileInputStream("images/backgrounds/blue.jpg"));	
-			
+			Pane gamePane = new Pane();			
+			Image image = new Image(new FileInputStream("images/backgrounds/blue.jpg"));				
 			ImageView background = new ImageView(image);			
 			background.setFitWidth(500);
 			background.setFitHeight(500);
@@ -95,8 +93,7 @@ public class FinalProjectChaserGame extends Application {
 					
 			BorderPane pane = new BorderPane();
 			pane.setCenter(gamePane);
-			pane.setTop(hBox);
-			
+			pane.setTop(hBox);			
 			pane.setOnKeyPressed(e ->  { 
 			switch (e.getCode()) {
 				case DOWN:this.chaser.down();return;  
@@ -115,7 +112,8 @@ public class FinalProjectChaserGame extends Application {
 				pointGain();
 			}); 
 						
-	}	
+	}
+	//method that adds points to score	
 	public void pointGain() {
 		score.setText("Score: " + Long.toString(chaser.scoreT));
 		double diffX = Math.abs(chaser.face.getX() - food.food.getX());
@@ -129,7 +127,8 @@ public class FinalProjectChaserGame extends Application {
 			return;
 		}	
 	}
-	public int index = 0; 
+	public int index = 0;
+	//method that plays music continuously 
 	public void playMediaTracks(ObservableList<Media> mediaList) {
 		if (mediaList.size() == 0){
 			return;
@@ -139,7 +138,7 @@ public class FinalProjectChaserGame extends Application {
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
 			@Override
 			public void run() {	
-				if(index < mediaList.size() - 1){
+				if(index + 1 < mediaList.size() - 1){
 					index++;
 				}	
 				else{
@@ -160,9 +159,7 @@ public class FinalProjectChaserGame extends Application {
 		});		
 	}		
 }
-
-
-//--------------------------------CHASER-------------------------------------------------
+//--------------------------------CHASER Class-------------------------------------------------
 class Chaser extends Pane {
 	public long scoreT = 0;
 	public ImageView face;
@@ -177,24 +174,27 @@ class Chaser extends Pane {
 		catch (FileNotFoundException e) {
 		}	
 	}
-	
-	
+	//method for when the down arrow key is pushed, chaser moves down
 	public void down(){
 		if(this.face.getY() > 405) return;
 		this.face.setY(this.face.getY() + 10); 
 	}
+	//method for when the up arrow key is pushed, chaser moves up
 	public void up(){
 		if(this.face.getY() < 10) return;
 		this.face.setY(this.face.getY() - 10);
 	}
+	//method for when the right arrow key is pushed, chaser moves right
 	public void right(){
 		if(this.face.getX() > 440) return;
 		this.face.setX(this.face.getX() + 10);	
 	}
+	//method for when the left arrow key is pushed, chaser moves left.
 	public void left(){
 		if(this.face.getX() < 10) return;
 		this.face.setX(this.face.getX() - 10);	
 	}
+	//method for setting up chaser to be called by restart
 	public void start(){
 		try {
 			Image openFace = new Image(new FileInputStream("images/faces/openFace.png"));	
@@ -208,31 +208,14 @@ class Chaser extends Pane {
 		catch (FileNotFoundException e) {
 		}		
 	}
+	//method for restarting by calling start to set face up in position, and reset score
 	public void restart(){
 		this.scoreT = 0;
 		getChildren().remove(this.face);
 		start();			
-	}	
-	public void eat(){
-		try{	
-			this.face = new ImageView(new Image(new FileInputStream("images/faces/heartFace.png")));
-			this.face.setFitHeight(50);
-			this.face.setFitWidth(50);
-		}
-		catch(FileNotFoundException e){	
-		}									
-	}
-	public void normal(){
-			try{
-				Image openFace = new Image(new FileInputStream("images/faces/openFace.png"));	
-				this.face =	new ImageView(openFace);
-			}
-			catch (FileNotFoundException e){	
-			}		
-		}
-		
+	}		
 }
-//--------------------------------FOOD-------------------------------------------------
+//--------------------------------FOOD Class-------------------------------------------------
 class Food extends Pane {
 	public ImageView food;
 	public Food() {
@@ -244,8 +227,7 @@ class Food extends Pane {
 				if(randFoodX % 10 != 0){
 					while(randFoodX % 10 != 0){
 						randFoodX--;
-					}
-						
+					}						
 				}
 				if(randFoodY % 10 != 0){
 					while(randFoodY % 10 != 0){
@@ -259,7 +241,8 @@ class Food extends Pane {
 			this.food.setFitWidth(50);
 			getChildren().add(this.food);
 	}
-	public void start(){			
+	//method for setting the location of food
+	public void start() {
 		String foodImg = foodPicker();
 		this.food = new ImageView(new Image(foodImg));
 		int randFoodX = (int)(Math.random() * 300 + 50);
@@ -268,7 +251,7 @@ class Food extends Pane {
 			if(randFoodX % 10 != 0){
 				while(randFoodX % 10 != 0){
 					randFoodX--;
-				}			
+				}
 			}
 			if(randFoodY % 10 != 0){
 				while(randFoodY % 10 != 0){
@@ -280,17 +263,19 @@ class Food extends Pane {
 		this.food.setY(randFoodY);
 		this.food.setFitHeight(50);
 		this.food.setFitWidth(50);
-		getChildren().add(this.food);	
+		getChildren().add(this.food);
 	}
+	//method for restarting and calling start
 	public void restart(){
 		getChildren().remove(this.food);
 		start();
 	}
-	
+	//method for when face eats food
 	public void die(){
 		getChildren().remove(this.food);
 		start();
 	}
+	//method for choosing what food image is shown when called
 	public static String foodPicker() {
 		Random random = new Random();	
 		String[] food  = {"banana", "birthdayCake", "bread", "candy", "cherry", "chocolate", "cookie", "corn", "donut", "drumstick", "flan", "frenchFries", "friedEgg", "fruitShiskabob", "grapes", "greenApple", "greenSoup", "hamburger", "honey", "icecreamBowl", "icecreamCone", "lemon", "lollypop", "meatOnBones", "meatShishkabob", "melon", "orange", "orangeJuice", "peach", "pear", "pineapple", "pizzaSlice", "redApple", "rice", "spaghetti","strawberry", "strawberryIcecream", "strawberryShortCake", "tomato", "watermelonSlice", "yams" };

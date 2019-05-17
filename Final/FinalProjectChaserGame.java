@@ -325,13 +325,7 @@ class Food extends Pane {
 		int rand = random.nextInt(food.length);
 		String result = new String("images/food/" + food[rand] + ".png");
 		return result;
-	}
-	
-}
-
-//--------------------------------OBJECTS-------------------------------------------------
-class Objects extends Pane {
-	
+	}	
 }
 
 

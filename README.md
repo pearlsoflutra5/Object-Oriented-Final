@@ -1,27 +1,54 @@
 # Object-Oriented-Final
 ## Synopsis
-I have created a game for younger children. The average age range that would most appreciate it would probably be from about 5-10. It is similar to the classical Snake Game, however, my hunter does not increase in size. Points are added and fun music is playing in the background. 
+I have created a game for younger children. The average age range that would most appreciate it would probably be from about 5-10. It is similar to the classical Snake Game, however, my "hunter" does not increase in size. Points are added and fun music is playing in the background. 
 
 ## Motivation
-I have two young nephews and I wanted to create a game that would be fun for them. I always think it is fun to create a game that you would like to play yourself and be able to share with those around you. I thought it would be a fun program for them to 
+I have two young nephews and I wanted to create a game that would be fun for them. I always think it is fun to create a game that you would like to play yourself and be able to share with those around you. I thought it would be a fun game that was simple on the outside, but it would be able to do more fun things than it would appear. 
 
 ## How to Run
-
-Explain what files are needed to run and which file to run. It is also helpful to include a screenshot of the program running. Make sure image is in your repository.
-[still of my code during run](code.png)
+The only file needed to run the code is the main FinalProjectChaserGame.java from the main screen. 
+[Still of my code during a run.](code.png)
 
 ## Code Example
-Show a small snippet of the code you are proud of and why.
-
+I was especially proud of this code because it was the most important to me.  I wanted to take music from a Media list and then be able to repeat it infinitely. While running infinitely I also wanted to be able to pause the music, because you may have to leave and that is the only thing that is dependent on time. The rest of the code takes user input to run. It took me a while to get the code in the correct locations, but it was very rewarding to make what I specifically wanted for my project.  
 ```
-
+public int index = 0; 
+	public void playMediaTracks(ObservableList<Media> mediaList) {
+		if (mediaList.size() == 0){
+			return;
+		}
+		this.mediaPlayer = new MediaPlayer(mediaList.get(index));
+		this.mediaPlayer.play();							 							
+		mediaPlayer.setOnEndOfMedia(new Runnable() {
+			@Override
+			public void run() {	
+				if(index + 1 < mediaList.size() - 1){
+					index++;
+				}	
+				else{
+					index = 0;
+				}				
+				playMediaTracks(mediaList);
+			}
+		});				
+		pause.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				mediaPlayer.pause();					
+			}
+		});			
+		start.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				mediaPlayer.play();					
+			}
+		});		
+	}		
 ```
 
 ## Tests
-Describe and show how to run the tests with code examples. State that you are using JUnit4 to test.
+### Describe and show how to run the tests with code examples. State that you are using JUnit4 to test.
 
 ## Contributors
-There is not anything that is special for this project. I did use JavaFx so there may be some complications with certain programs. Anyone can modify this project how they wish just as long as the original code stays the same. 
+There is not anything that is special for this project. I did use JavaFx so there may be some complications with certain programs. Anyone can modify this project how they wish just as long as the original code stays the same.  A fun idea that I had was to create obstacles for the "hunter" to avoid.
 
 ## resources
 ### Images

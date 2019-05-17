@@ -1,9 +1,10 @@
 /*
 Kacie Rae
 5-6-19
-Final Project: Chaser game with an emoji face that eats food and dodges obstacles.
+Final Project: Chaser game with an emoji face that eats food.
 
-All the images are By Twitter, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=(37288034 through 37288142)
+All the images are By Twitter, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=  number
+	number = (37288034 through 37288142)
 
 Music by Alexander Blu, CC BY 4.0, http://www.orangefreesounds.com/aggressive-electronic-dubstep-track/
 	http://www.orangefreesounds.com/electronic-beat/
@@ -23,7 +24,10 @@ Sound effects by Alexander Blu, CC BY 4.0, http://www.orangefreesounds.com/winni
 import java.io.File; 
 import java.io.FileInputStream; 
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.Random; 
+import java.util.List;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,14 +55,17 @@ public class FinalProjectChaserGame extends Application {
 	public Text score;
 	public long food1;	
 	public long food2;
-	
 	MediaPlayer mediaPlayer;
 	MediaPlayer win = new MediaPlayer(new Media(new File("sounds/win.mp3").toURI().toString()));
 	MediaPlayer lose = new MediaPlayer(new Media(new File("sounds/lose.mp3").toURI().toString()));
-	
 	Button start = new Button("Start Music");
 	Button pause = new Button("Pause Music");
-
+	boolean eating = false;
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		launch(args);
+	}
+	
 	@Override 
 		public void start(Stage primaryStage) throws FileNotFoundException {
 			Media music1 = new Media(this.getClass().getResource("sounds/background.mp3").toExternalForm());
@@ -77,10 +84,8 @@ public class FinalProjectChaserGame extends Application {
 			Media music9 = new Media(this.getClass().getResource("sounds/lose2.mp3").toExternalForm());
 
 			ObservableList<Media> mediaList = FXCollections.observableArrayList();
-			//mediaList.addAll(music3, );
-			mediaList.add(music3);
-			/*music2, music10, music1, music4, music5, music6, music7, music8, music12, music13, music11*/
-		
+			mediaList.addAll(music2, music3, music10, music1, music4, music5, music6, music7, music8, music12, music13, music11);
+			
 			playMediaTracks(mediaList);		
 			
 			this.chaser = new Chaser();	
@@ -88,9 +93,6 @@ public class FinalProjectChaserGame extends Application {
 			Pane gamePane = new Pane();
 			
 			Image image = new Image(new FileInputStream("images/backgrounds/blue.jpg"));	
-			//Image image = new Image(new FileInputStream("images/backgrounds/colorful.jpg"));
-			//Image image = new Image(new FileInputStream("images/backgrounds/paintSplotch2.jpg"));
-			//Image image = new Image(new FileInputStream("images/backgrounds/purplePaisley.jpg")); 
 			
 			ImageView background = new ImageView(image);			
 			background.setFitWidth(500);
@@ -98,7 +100,7 @@ public class FinalProjectChaserGame extends Application {
 			gamePane.getChildren().addAll(background, this.food, this.chaser);			
 			
 			HBox hBox = new HBox(10);
-			hBox.setAlignment(Pos.CENTER);
+			hBox.setAlignment(Pos.CENTER_LEFT);
 			hBox.setPadding(new Insets(3, 10, 3, 10));
 			hBox.setStyle("-fx-border-color: blue");
 			
@@ -138,48 +140,53 @@ public class FinalProjectChaserGame extends Application {
 						
 	}	
 	public void pointGain() {
+		eating = false;
 		score.setText("Score: " + Long.toString(chaser.scoreT));
-		if((chaser.face.getX() == food.food.getX()) && (chaser.face.getY() == food.food.getY())) {
+		double diffX = Math.abs(chaser.face.getX() - food.food.getX());
+		double diffY = Math.abs(chaser.face.getY() - food.food.getY());
+		if((diffX <= 20) && (diffY <= 20)) {
 			chaser.scoreT++;
 			score.setText("Score: " + chaser.scoreT + "");		
-			food.die();			
+			food.die();	
+			eating = true;;
 		}
 		else {
 			return;
 		}	
-	} 
-		
-	public void playMediaTracks(ObservableList<Media> mediaList) {		
+	}
+	public int index = 0; 
+	public void playMediaTracks(ObservableList<Media> mediaList) {
 		if (mediaList.size() == 0){
 			return;
-		}	
+		}
 		
-		MediaPlayer mediaPlayer = new MediaPlayer(mediaList.remove(0));	
+		
+		this.mediaPlayer = new MediaPlayer(mediaList.get(index));
+		this.mediaPlayer.play();	
+						 							
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
 			@Override
-			public void run() {
+			public void run() {	
+				if(index < mediaList.size() - 1){
+					index++;
+				}	
+				else{
+					index = 0;
+				}				
 				playMediaTracks(mediaList);
 			}
-		});
-		mediaPlayer.play();
-		
+		});				
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				mediaPlayer.pause();					
 			}
-		});
-		
+		});			
 		start.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				mediaPlayer.play();					
 			}
-		});	
-	}
-	
-	
-	public static void main(String[] args) throws FileNotFoundException {
-			launch(args);
-		}	
+		});		
+	}		
 }
 
 
@@ -242,14 +249,6 @@ class Chaser extends Pane {
 		}
 		catch(FileNotFoundException e){	
 		}									
-	}
-	public void die(){
-		try{
-			Image deadFace = new Image(new FileInputStream("images/faces/deadFace.png"));
-			this.face =	new ImageView(deadFace);
-		}
-		catch (FileNotFoundException e){	
-		}		
 	}
 	public void normal(){
 			try{
